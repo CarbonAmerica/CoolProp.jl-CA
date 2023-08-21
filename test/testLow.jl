@@ -68,20 +68,12 @@ pq_inputs = get_input_pair_index("PQ_INPUTS")
 t = get_param_index("T")
 AbstractState_set_fractions(handle, [0.4, 0.6])
 AbstractState_update(handle,pq_inputs,101325, 0)
-
-mol_frac = [0.0, 0.0]
-AbstractState_get_mole_fractions(handle, mol_frac)
-@show mol_frac
-
+mole_frac = [0.0, 0.0]
+AbstractState_get_mole_fractions(handle, mole_frac)
 gas_frac = [0.0, 0.0]
-liq_frac = [0.0, 0.0]
 AbstractState_get_mole_fractions_satState(handle, "gas", gas_frac)
+liq_frac = [0.0, 0.0]
 AbstractState_get_mole_fractions_satState(handle, "liquid", liq_frac)
-@show gas_frac
-@show liq_frac
-
-
-
 if (haskey(ENV, "includelocalwrapper") && ENV["includelocalwrapper"]=="on")
     T, p, rhomolar, hmolar, smolar = AbstractState_update_and_common_out(handle, pq_inputs, [101325.0], [0.0], 1)
     temp_, p, rhomolar, hmolar, smolar = AbstractState_update_and_common_out(handle, "PQ_INPUTS", [101325.0], [0.0], 1)
