@@ -68,6 +68,12 @@ pq_inputs = get_input_pair_index("PQ_INPUTS")
 t = get_param_index("T")
 AbstractState_set_fractions(handle, [0.4, 0.6])
 AbstractState_update(handle,pq_inputs,101325, 0)
+mole_frac = [0.0, 0.0]
+AbstractState_get_mole_fractions(handle, mole_frac)
+gas_frac = [0.0, 0.0]
+AbstractState_get_mole_fractions_satState(handle, "gas", gas_frac)
+liq_frac = [0.0, 0.0]
+AbstractState_get_mole_fractions_satState(handle, "liquid", liq_frac)
 i = 0 #index of water in mixture
 f_0 = AbstractState_get_fugacity(handle, i)
 fc_0 = AbstractState_get_fugacity_coefficient(handle, i)
